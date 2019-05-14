@@ -45,8 +45,20 @@ constructor() {
       this.callBall()
         console.log('ball')
     } else if (call === 'foul') {
+      if (this.state.strikes < 2) {
+        this.setState({
+          strikes : this.state.strikes + 1
+        })
+      }
+
+
         console.log('foul')
     } else {
+
+      this.setState({
+        strikes : 0,
+        balls: 0
+      })
         console.log('hit')
     }
 }
