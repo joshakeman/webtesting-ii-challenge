@@ -8,15 +8,41 @@ import Display from './components/Display'
 
 class App extends React.Component {
   
-  state = {
+constructor() {
+  super()
+  
+  this.state = {
     strikes: 0,
     balls: 0,
 }
 
+}
+  callBall = () => {
+    if ( this.state.balls === 3 ) {
+      this.setState({
+        balls: 0
+      })
+    } else {
+      this.setState({
+        balls : this.state.balls + 1
+      })
+    } 
+  }
+
   umpCall = (call) => {
     if (call === 'strike') {
-        console.log('streeeeeeeeeeike!')
+        if ( this.state.strikes === 2 ) {
+          this.setState({
+            strikes : 0
+          })
+        } else {
+          this.setState({
+            strikes : this.state.strikes + 1
+          })
+        }
+       
     } else if (call === 'ball') {
+      this.callBall()
         console.log('ball')
     } else if (call === 'foul') {
         console.log('foul')
@@ -30,7 +56,8 @@ class App extends React.Component {
       <div className="App">
         <Dashboard 
         umpCall={this.umpCall}/>
-        <Display />
+        <Display 
+        count={this.state}/>
       </div>
     );
 
